@@ -8,7 +8,7 @@
 
 <div>
   <div class="site" style='background-image: url("https://files.codelife.cc/icons/add.svg");
-  background-color: white;' @click="dialogVisible = true"></div>
+  background-color: white;' @click="handleDialogVisible"></div>
   <p class="site-text">添加图标</p>
 </div>
 
@@ -16,16 +16,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref,onMounted,watch } from 'vue';
+import { ref,onMounted,watch,defineEmits } from 'vue';
 import axios from 'axios';
 import { useRoute,useRouter } from 'vue-router';
+import { useCounterStore } from '@/store/countStore';
+import { countdownEmits } from 'element-plus';
 
 const route = useRoute();
+
+const couter = useCounterStore();
 
 const router = useRouter();
 
 //对话框默认隐藏
 const dialogVisible = ref(true)
+
+function handleDialogVisible(){
+  couter.handelDialog()
+}
 
 interface SiteItem {
   name: string;

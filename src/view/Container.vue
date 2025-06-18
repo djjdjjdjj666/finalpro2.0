@@ -54,13 +54,13 @@
 </div>
 
 
-  <el-dialog v-model="dialogVisible" title="Tips" width="800px" draggable>
+  <el-dialog v-model="counter.dialog" title="Tips" width="800px" draggable>
 
       <el-form :model="form" label-width="auto" style="max-width: 600px">
 <el-form :model="form" label-width="auto" style="max-width: 600px">
     <el-form-item label="地址">
       <el-input class="input-long" v-model="form.url" @change="fetchWebsiteInfo"/>
-      <span class="get-icon" style="width: 30px;height: 20px;background-color: blue;" @click="fetchWebsiteInfo"></span>
+      <span class="get-icon" style="width: 80px;height: 30px;" @click="fetchWebsiteInfo">获取图标</span>
     </el-form-item>
 
     <el-form-item label="名称">
@@ -138,7 +138,7 @@
 
   <template #footer>
     <div class="dialog-footer">
-      <el-button @click="dialogVisible = false">退出</el-button>
+      <el-button @click="counter.handelDialog">退出</el-button>
       <el-button type="primary" @click="saveIcon">
         保存
       </el-button>
@@ -158,13 +158,13 @@ import { ref,onMounted,watch} from 'vue';
 import { useRouter, useRoute} from 'vue-router';
 import axios from 'axios';
 import html2canvas from 'html2canvas'
+import { useCounterStore } from '@/store/countStore';
 
+const counter = useCounterStore();
 
 const userId:any = 123 // 示例用户 ID
 
 //弹窗默认关闭
-const dialogVisible = ref(true);
-
 
     const saveIcon = async () => {
   if (!selectedIconData.value) {
@@ -655,6 +655,13 @@ input::placeholder{
   text-align: center;
   margin-top: 7px;
   color: black;
+}
+
+.get-icon{
+  margin-left: 10px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6); /* 半透明白 */
+
 }
 
 
